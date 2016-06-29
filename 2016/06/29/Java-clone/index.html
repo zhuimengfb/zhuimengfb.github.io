@@ -1,0 +1,639 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="这是第一篇自己搭建的blog，就拿今天code review中涉及到的Java clone这一话题开刀吧，也算是熟悉一下MD的使用。。。
+在被老大问到Java当中的普通clone是浅拷贝和深拷贝时，凭借着第六感回答了浅拷贝，然后就被要求用代码来证明，然后就简单写了一下代码，发现如果没有对clone方法做一些手脚的话，Java是默认的浅拷贝，不幸被我答对了（偷笑），如果需要进行深拷贝的话，修改一下代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈Java之clone">
+<meta property="og:url" content="http://yoursite.com/2016/06/29/Java-clone/index.html">
+<meta property="og:site_name" content="zhuimengfb's blog">
+<meta property="og:description" content="这是第一篇自己搭建的blog，就拿今天code review中涉及到的Java clone这一话题开刀吧，也算是熟悉一下MD的使用。。。
+在被老大问到Java当中的普通clone是浅拷贝和深拷贝时，凭借着第六感回答了浅拷贝，然后就被要求用代码来证明，然后就简单写了一下代码，发现如果没有对clone方法做一些手脚的话，Java是默认的浅拷贝，不幸被我答对了（偷笑），如果需要进行深拷贝的话，修改一下代">
+<meta property="og:image" content="http://i.imgur.com/5ixBuK9.png">
+<meta property="og:image" content="http://i.imgur.com/NSdbwAD.png">
+<meta property="og:image" content="http://i.imgur.com/OtoVqbn.png">
+<meta property="og:updated_time" content="2016-04-29T16:43:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈Java之clone">
+<meta name="twitter:description" content="这是第一篇自己搭建的blog，就拿今天code review中涉及到的Java clone这一话题开刀吧，也算是熟悉一下MD的使用。。。
+在被老大问到Java当中的普通clone是浅拷贝和深拷贝时，凭借着第六感回答了浅拷贝，然后就被要求用代码来证明，然后就简单写了一下代码，发现如果没有对clone方法做一些手脚的话，Java是默认的浅拷贝，不幸被我答对了（偷笑），如果需要进行深拷贝的话，修改一下代">
+<meta name="twitter:image" content="http://i.imgur.com/5ixBuK9.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 浅谈Java之clone | zhuimengfb's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuimengfb's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                浅谈Java之clone
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-06-29T22:43:02+08:00" content="2016-06-29">
+              2016-06-29
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这是第一篇自己搭建的blog，就拿今天code review中涉及到的Java clone这一话题开刀吧，也算是熟悉一下MD的使用。。。<br></p>
+<p>在被老大问到Java当中的普通clone是浅拷贝和深拷贝时，凭借着第六感回答了浅拷贝，然后就被要求用代码来证明，然后就简单写了一下代码，发现如果没有对clone方法做一些手脚的话，Java是默认的浅拷贝，不幸被我答对了（偷笑），如果需要进行深拷贝的话，修改一下代码就行了。好啦，故事就是这样，那我们来稍微详细地分析一下这个问题吧。<br></p>
+<p>首先介绍一下浅拷贝和深拷贝的概念吧。所谓的<strong>浅拷贝</strong>是指拷贝之后的对象保持原对象的所有属性，这里既包括基本类型数据以及对象引用。对于基本类型数据，拷贝对象和原始对象拥有相同的值，而对于对象引用，拷贝对象和原始对象拥有相同的引用，即都指向堆当中的同一对象。而<strong>深拷贝</strong>则是指拷贝对象和原对象拥有相同的基本类型数据以及不同的对象引用，但在堆中的对象的所有属性完全相同，即深拷贝对于对象属性，会在堆中开辟新空间完全拷贝原对象中所引用的对象，然后令本身的对象引用指向新地址，这样，修改拷贝对象中的引用对象的属性并不会影响原对象。<br></p>
+<p>最原始的clone方法出现在java.lang.Object这个类里面，用于创建并且返回一个对象的拷贝。我们知道，Java中所有对象都默认是继承了java.lang.Object这个类，因此，既然对象的祖先提供了clone这个方法来进行对象拷贝，那理所当然子类可以调用这个方法来实现对象本身的拷贝。然而不幸的是，java.lang.Object中这个方法是protected，因此子类对象并不能顺利地直接调用，那怎么办？直接Override呗，在方法中调用super.clone()方法就可以进行默认的对象拷贝了。当然，有个坑就是该<strong>对象必须实现Cloneable接口</strong>，否者运行时会出现CloneNotSupportedException异常。嗯，简单看看代码吧<br></p>
+<pre><code>public class People implements Cloneable{
+
+    private String name;
+
+    public People(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    protected Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
+</code></pre><p>简单实现了Cloneable接口的People类，里面包含一个String类型的属性，以及构造方法和get/set函数，Override的clone函数调用了super.clone()方法来调用Object类中的clone方法。<br></p>
+<p>然后是测试代码，简单创建一个People对象，然后调用clone方法来得到拷贝的新对象。比较拷贝对象与原对象的属性情况，然后修改拷贝对象的属性，再次比较，代码很简单。</p>
+<pre><code>public static void main(String[] args) {
+    People people = new People(&quot;zhuimengfb&quot;);
+    People peopleClone = (People) people.clone();
+
+    System.out.println(&quot;original people name: &quot; + people.getName());
+    System.out.println(&quot;clone people name: &quot; + peopleClone.getName());
+
+    peopleClone.setName(&quot;blog&quot;);
+
+    System.out.println(&quot;after change original name: &quot; + people.getName());
+    System.out.println(&quot;after change clone name: &quot; + peopleClone.getName());
+}
+</code></pre><p>结果如下图<br><br><img src="http://i.imgur.com/5ixBuK9.png" alt=""><br><br>从结果可以看出拷贝对象的属性修改并不会改变原对象的属性，咋一看可以理解为深拷贝。当然，这只是该对象中的属性都是基本类型的情况下（在Java中，对String类型的操作可以看成基本类型操作）,一旦对象中存在对象的引用，拷贝之后就不是这样了，我们修改People类，让其持有一个对象引用属性。新建一个Body类描述身高体重信息，代码如下<br></p>
+<pre><code>public class Body {
+
+    private double height;
+    private double weight;
+
+    public Body(double height, double weight) {
+        this.height = height;
+        this.weight = weight;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Body height: &quot; + getHeight() + &quot;cm &quot; + &quot;weight: &quot; + getWeight() + &quot;kg&quot;;
+    }
+}
+</code></pre><p>然后在People类中添加Body属性，并修改相应的构造函数和get/set方法。并且修改测试方法<br></p>
+<pre><code>public static void main(String[] args) {
+    People people = new People(&quot;zhuimengfb&quot;, new Body(170, 60));
+    People peopleClone = (People) people.clone();
+
+    System.out.println(&quot;original &quot; + people.toString());
+    System.out.println(&quot;clone &quot; + peopleClone.toString());
+
+    peopleClone.setName(&quot;blog&quot;);
+    peopleClone.getBody().setHeight(175);
+    peopleClone.getBody().setWeight(64);
+
+    System.out.println(&quot;after change original &quot; + people.toString());
+    System.out.println(&quot;after change clone &quot; + peopleClone.toString());
+}
+</code></pre><p>运行的结果如下图<br><br><img src="http://i.imgur.com/NSdbwAD.png" alt=""><br><br>从结果可以看出，修改了拷贝对象中的引用对象属性，原始对象中所引用的对象也发生了改变，着就说明了<strong>默认的clone函数是一个浅拷贝</strong>。<br></p>
+<p>那么要如何实现深拷贝了，这只需要在Override的clone方法中做点手脚就行了，既然super.clone()方法把对象中的引用属性直接拷贝过来，那么我们可以创建一个新的对象，然后修改这个引用关系即可。直接看代码吧<br></p>
+<pre><code>protected Object clone() {
+    People people = null;
+    try {
+        people = (People) super.clone();
+    } catch (CloneNotSupportedException e) {
+        e.printStackTrace();
+    }
+    people.setBody(new Body(body.getHeight(), body.getWeight()));
+    return people;
+}
+</code></pre><p>修改之后，再次运行测试，得到的结果如下图<br><br><img src="http://i.imgur.com/OtoVqbn.png" alt=""><br><br>可以看出修改拷贝对象的引用对象属性并不会改变原始对象的引用对象属性，这样就实现了深拷贝。<br><br>由于Java中默认的clone()方法实现的是浅拷贝，所以当项目中需要进行深拷贝时，建议重新写一个deepClone()方法来实现深拷贝，这样能避免不同的程序员写代码时造成误解。<br></p>
+<p>第一篇blog算是写完了，对MD的一些东西也算有了了解，撒花。</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+        </div>
+      
+
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="zhuimengfb" />
+          <p class="site-author-name" itemprop="name">zhuimengfb</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">Artikel</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">Tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">Dieser Artikel hat kein Inhaltsverzeichnis</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhuimengfb</span>
+</div>
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
