@@ -88,7 +88,7 @@
 <meta property="og:description" content="回想当初刚开始接触Android已经快三年了，从大二开始翻开了Android的第一页篇章之后，一直反反复复看书，敲代码，Android的大大小小知识，简单的复杂的都差不多有所接触。然而可能由于总结得太少，知识点感觉有点散乱，借着最近项目不是特别紧急，抽空缕一缕Android的一些知识。因此，就从Google官方的Android Training开始吧。设备适配这一块儿虽然项目上并不总是会用到，毕竟">
 <meta property="og:image" content="http://yoursite.com/Screen%20Shot%202016-07-12%20at%2022.11.40.png">
 <meta property="og:image" content="http://yoursite.com/Screen%20Shot%202016-07-12%20at%2023.07.04.png">
-<meta property="og:updated_time" content="2016-07-12T15:48:16.000Z">
+<meta property="og:updated_time" content="2016-07-12T16:07:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Training之应用适配">
 <meta name="twitter:description" content="回想当初刚开始接触Android已经快三年了，从大二开始翻开了Android的第一页篇章之后，一直反反复复看书，敲代码，Android的大大小小知识，简单的复杂的都差不多有所接触。然而可能由于总结得太少，知识点感觉有点散乱，借着最近项目不是特别紧急，抽空缕一缕Android的一些知识。因此，就从Google官方的Android Training开始吧。设备适配这一块儿虽然项目上并不总是会用到，毕竟">
@@ -242,7 +242,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-12T23:38:19+08:00" content="2016-07-12">
+            <time itemprop="dateCreated" datetime="2016-07-12T23:58:08+08:00" content="2016-07-12">
               2016-07-12
             </time>
           </span>
@@ -271,9 +271,10 @@
 
       
         <p>回想当初刚开始接触Android已经快三年了，从大二开始翻开了Android的第一页篇章之后，一直反反复复看书，敲代码，Android的大大小小知识，简单的复杂的都差不多有所接触。然而可能由于总结得太少，知识点感觉有点散乱，借着最近项目不是特别紧急，抽空缕一缕Android的一些知识。因此，就从Google官方的Android Training开始吧。<br>设备适配这一块儿虽然项目上并不总是会用到，毕竟实验室的项目很多时候都是Demo性质，因此实践得并不充分。看完Android Training上的设备适配这一章，巩固了使用率较高的一些适配注意事项，也学习到了一些新的适配注意事项。</p>
-<h2 id="语言适配"><a href="#语言适配" class="headerlink" title="语言适配"></a>语言适配</h2><p>众所周知的是在工程中使用的字符串最好是字符串资源，因为有的时候相同的字符串可能多次使用，当需要修改时，只需要修改字符串资源就可以了。但使用字符串资源更重要的作用就是语言适配。所谓语言适配就是指应用可以跟随系统的语言变化而进行语言切换。为了实现这个功能，最直观的想法便是在使用字符串的地方根据系统语言环境进行字符串选择。可是仔细一想这个工作量得有多大才行啊。好在Google为我们提供了方便的语言适配方案。<br>观察Android Studio的工程目录结构，可以发现字符串资源放在res/values/string.xml文件中，定义方式如下代码所示<br></p>
+<a id="more"></a>
+<h2 id="语言适配"><a href="#语言适配" class="headerlink" title="语言适配"></a>语言适配</h2><p>众所周知的是在工程中使用的字符串最好是字符串资源，因为有的时候相同的字符串可能多次使用，当需要修改时，只需要修改字符串资源就可以了。但使用字符串资源更重要的作用就是语言适配。所谓语言适配就是指应用可以跟随系统的语言变化而进行语言切换。为了实现这个功能，最直观的想法便是在使用字符串的地方根据系统语言环境进行字符串选择。可是仔细一想这个工作量得有多大才行啊。好在Google为我们提供了方便的语言适配方案。<br>观察Android Studio的工程目录结构，可以发现字符串资源放在res/values/string.xml文件中，定义方式如下代码所示</p>
 <pre><code>&lt;resources&gt;
-     &lt;string name=&quot;app_name&quot;&gt;Application&lt;/string&gt;
+    &lt;string name=&quot;app_name&quot;&gt;Application&lt;/string&gt;
 &lt;/resources&gt;
 </code></pre><p>在布局文件中使用字符串资源的方式为@string/app_name即可。而在Java代码中使用字符串资源通用的方法是通过Resource类的getString方法去获取，后来无意中发现在Activity中可以直接通过getString方法获取到字符串资源，查看了源代码发现其实Context类中的getString方法最终还是通过调用Resource类的getString方法去获取字符串资源。在一些可以直接通过资源id显示字符串的控件比如TextView也可以直接通过setText方法显示字符串资源。代码如下所示</p>
 <pre><code>getResources().getString(R.string.app_name);

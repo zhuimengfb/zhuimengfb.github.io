@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://i.imgur.com/5ixBuK9.png">
 <meta property="og:image" content="http://i.imgur.com/NSdbwAD.png">
 <meta property="og:image" content="http://i.imgur.com/OtoVqbn.png">
-<meta property="og:updated_time" content="2016-04-29T16:43:40.000Z">
+<meta property="og:updated_time" content="2016-07-12T16:06:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈Java之clone">
 <meta name="twitter:description" content="这是第一篇自己搭建的blog，就拿今天code review中涉及到的Java clone这一话题开刀吧，也算是熟悉一下MD的使用。。。
@@ -275,7 +275,7 @@
 
       
         <p>这是第一篇自己搭建的blog，就拿今天code review中涉及到的Java clone这一话题开刀吧，也算是熟悉一下MD的使用。。。<br></p>
-<p>在被老大问到Java当中的普通clone是浅拷贝和深拷贝时，凭借着第六感回答了浅拷贝，然后就被要求用代码来证明，然后就简单写了一下代码，发现如果没有对clone方法做一些手脚的话，Java是默认的浅拷贝，不幸被我答对了（偷笑），如果需要进行深拷贝的话，修改一下代码就行了。好啦，故事就是这样，那我们来稍微详细地分析一下这个问题吧。<br></p>
+<p>在被老大问到Java当中的普通clone是浅拷贝和深拷贝时，凭借着第六感回答了浅拷贝，然后就被要求用代码来证明，然后就简单写了一下代码，发现如果没有对clone方法做一些手脚的话，Java是默认的浅拷贝，不幸被我答对了（偷笑），如果需要进行深拷贝的话，修改一下代码就行了。好啦，故事就是这样，那我们来稍微详细地分析一下这个问题吧。<br><br><a id="more"></a></p>
 <p>首先介绍一下浅拷贝和深拷贝的概念吧。所谓的<strong>浅拷贝</strong>是指拷贝之后的对象保持原对象的所有属性，这里既包括基本类型数据以及对象引用。对于基本类型数据，拷贝对象和原始对象拥有相同的值，而对于对象引用，拷贝对象和原始对象拥有相同的引用，即都指向堆当中的同一对象。而<strong>深拷贝</strong>则是指拷贝对象和原对象拥有相同的基本类型数据以及不同的对象引用，但在堆中的对象的所有属性完全相同，即深拷贝对于对象属性，会在堆中开辟新空间完全拷贝原对象中所引用的对象，然后令本身的对象引用指向新地址，这样，修改拷贝对象中的引用对象的属性并不会影响原对象。<br></p>
 <p>最原始的clone方法出现在java.lang.Object这个类里面，用于创建并且返回一个对象的拷贝。我们知道，Java中所有对象都默认是继承了java.lang.Object这个类，因此，既然对象的祖先提供了clone这个方法来进行对象拷贝，那理所当然子类可以调用这个方法来实现对象本身的拷贝。然而不幸的是，java.lang.Object中这个方法是protected，因此子类对象并不能顺利地直接调用，那怎么办？直接Override呗，在方法中调用super.clone()方法就可以进行默认的对象拷贝了。当然，有个坑就是该<strong>对象必须实现Cloneable接口</strong>，否者运行时会出现CloneNotSupportedException异常。嗯，简单看看代码吧<br></p>
 <pre><code>public class People implements Cloneable{
