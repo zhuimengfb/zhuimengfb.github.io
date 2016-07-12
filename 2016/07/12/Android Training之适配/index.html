@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -80,12 +80,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhuimengfb's blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="回想当初刚开始接触Android已经快三年了，从大二开始翻开了Android的第一页篇章之后，一直反反复复看书，敲代码，Android的大大小小知识，简单的复杂的都差不多有所接触。然而可能由于总结得太少，知识点感觉有点散乱，借着最近项目不是特别紧急，抽空缕一缕Android的一些知识。因此，就从Google官方的Android Training开始吧。设备适配这一块儿虽然项目上并不总是会用到，毕竟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Training之应用适配">
+<meta property="og:url" content="http://yoursite.com/2016/07/12/Android Training之适配/index.html">
 <meta property="og:site_name" content="zhuimengfb's blog">
+<meta property="og:description" content="回想当初刚开始接触Android已经快三年了，从大二开始翻开了Android的第一页篇章之后，一直反反复复看书，敲代码，Android的大大小小知识，简单的复杂的都差不多有所接触。然而可能由于总结得太少，知识点感觉有点散乱，借着最近项目不是特别紧急，抽空缕一缕Android的一些知识。因此，就从Google官方的Android Training开始吧。设备适配这一块儿虽然项目上并不总是会用到，毕竟">
+<meta property="og:image" content="http://yoursite.com/Screen%20Shot%202016-07-12%20at%2022.11.40.png">
+<meta property="og:image" content="http://yoursite.com/Screen%20Shot%202016-07-12%20at%2023.07.04.png">
+<meta property="og:updated_time" content="2016-07-12T15:42:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zhuimengfb's blog">
+<meta name="twitter:title" content="Android Training之应用适配">
+<meta name="twitter:description" content="回想当初刚开始接触Android已经快三年了，从大二开始翻开了Android的第一页篇章之后，一直反反复复看书，敲代码，Android的大大小小知识，简单的复杂的都差不多有所接触。然而可能由于总结得太少，知识点感觉有点散乱，借着最近项目不是特别紧急，抽空缕一缕Android的一些知识。因此，就从Google官方的Android Training开始吧。设备适配这一块儿虽然项目上并不总是会用到，毕竟">
+<meta name="twitter:image" content="http://yoursite.com/Screen%20Shot%202016-07-12%20at%2022.11.40.png">
 
 
 
@@ -103,7 +110,7 @@
   };
 </script>
 
-  <title> zhuimengfb's blog </title>
+  <title> Android Training之应用适配 | zhuimengfb's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -124,9 +131,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -203,9 +208,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -225,10 +230,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/07/12/Android Training之适配/" itemprop="url">
-                  Android Training之应用适配
-                </a>
+                Android Training之应用适配
               
             
           </h1>
@@ -268,241 +270,62 @@
       
 
       
-        
-          
-            <p>回想当初刚开始接触Android已经快三年了，从大二开始翻开了Android的第一页篇章之后，一直反反复复看书，敲代码，Android的大大小小知识，简单的复杂的都差不多有所接触。然而可能由于总结得太少，知识点感觉有点散乱，借着最近项目不是特别紧急，抽空缕一缕Android的一些知识。因此，就从Google官方的Android Training开始吧。<br>设备适配这一块儿虽然项目上并不总是会用到，毕竟实验室的项目很多时候都是Demo性质，因此实践得并不充分。看完Android Training上的设备适配这一章，巩固了使用率较高的一些适配注意事项，也学习到了一些新的适配注意事项。</p>
+        <p>回想当初刚开始接触Android已经快三年了，从大二开始翻开了Android的第一页篇章之后，一直反反复复看书，敲代码，Android的大大小小知识，简单的复杂的都差不多有所接触。然而可能由于总结得太少，知识点感觉有点散乱，借着最近项目不是特别紧急，抽空缕一缕Android的一些知识。因此，就从Google官方的Android Training开始吧。<br>设备适配这一块儿虽然项目上并不总是会用到，毕竟实验室的项目很多时候都是Demo性质，因此实践得并不充分。看完Android Training上的设备适配这一章，巩固了使用率较高的一些适配注意事项，也学习到了一些新的适配注意事项。</p>
 <h2 id="语言适配"><a href="#语言适配" class="headerlink" title="语言适配"></a>语言适配</h2><p>众所周知的是在工程中使用的字符串最好是字符串资源，因为有的时候相同的字符串可能多次使用，当需要修改时，只需要修改字符串资源就可以了。但使用字符串资源更重要的作用就是语言适配。所谓语言适配就是指应用可以跟随系统的语言变化而进行语言切换。为了实现这个功能，最直观的想法便是在使用字符串的地方根据系统语言环境进行字符串选择。可是仔细一想这个工作量得有多大才行啊。好在Google为我们提供了方便的语言适配方案。<br>观察Android Studio的工程目录结构，可以发现字符串资源放在res/values/string.xml文件中，定义方式如下代码所示<br>    <resources><br>        <string name="app_name">Application</string><br>    </resources><br>在布局文件中使用字符串资源的方式为@string/app_name即可。而在Java代码中使用字符串资源通用的方法是通过Resource类的getString方法去获取，后来无意中发现在Activity中可以直接通过getString方法获取到字符串资源，查看了源代码发现其实Context类中的getString方法最终还是通过调用Resource类的getString方法去获取字符串资源。在一些可以直接通过资源id显示字符串的控件比如TextView也可以直接通过setText方法显示字符串资源。代码如下所示<br>    getResources().getString(R.string.app_name);<br>    getString(R.string.app_name);<br>    tvTest.setText(R.string.app_name);<br>知道了使用方法，语言适配就很好做了。Google提供了很好的方案，即在res目录下建立多语言资源结构就行。最简便的方式如下图所示<br><img src="Screen%20Shot%202016-07-12%20at%2022.11.40.png" alt=""><br>当系统语言切换后，通过资源类去获取字符串资源时，应用会首先去相应语言目录下寻找资源，当资源不存在再通过默认的资源目录去寻找。这样，适配多语言场景只需要优雅地对默认资源下的string.xml文件中的字符串进行翻译即可。一些常见的后缀包括：英语/en，中文/zh，西班牙语/es，德语/de，日语/ja等。<br>关于字符串资源的语言适配，最重要的就是<strong>一定要保证默认的资源文件下一定要包含应用所用到的字符串资源</strong>，否则当语言不匹配时，程序会报错。<br>除了字符串资源的语言适配，包括布局资源layout，图片资源drawable以及动画资源anim等都可以通过后缀的方式进行语言适配，这样就可以打造出国际化通用的应用程序。</p>
 <h2 id="屏幕尺寸适配"><a href="#屏幕尺寸适配" class="headerlink" title="屏幕尺寸适配"></a>屏幕尺寸适配</h2><p>经过近10年的发展，Android手机的屏幕已经从最初的小屏幕低分辨率演变成如今的大屏幕高分辨率。一开始火腿肠的g1屏幕尺寸为3.1寸，分辨率为480*320，如今大部分手机的屏幕尺寸都在5.0以上，分辨率更是达到了恐怖的2560*1440。面对市面上各种尺寸各种分辨率的Android手机，要使得开发出来的Android应用能够完美地在各种手机上显示是一件困难的事情。我们只能是尽可能地适配市面上各种比较主流的手机型号。<br>对于界面布局，Google提供了四种尺寸作为适配方案，分别为small，normal，large，xlarge。并且针对屏幕的方向提供了land（横屏）方案，如果不特殊申明，则默认使用竖屏方案。如果要结合两种方案，直接用-连接即可，例如res/layout-large-land/目录下就表明适用于大屏幕手机并且是横屏状态。在Android 3.0出来之后，一大波平板也随之诞生，平板一般具有更宽的宽度，因此可以通过使用宽度限定符来适配平板应用，例如宽度大于600dp的屏幕会自动使用layout-sw600dp下的布局。<br>为了构建更为灵活的布局，更重要的是布局中对于各种View的长宽设置，我们应该尽量避免使用固定值来设置长宽，而应该多使用wrap_content以及match_parent来设置长宽，并且在不居中更多地使用RelativeLayout来作为父布局。</p>
 <h2 id="Android版本适配"><a href="#Android版本适配" class="headerlink" title="Android版本适配"></a>Android版本适配</h2><p>Android从最初的测试版本，到1.1正式版再到如今的6.x，随着版本的变化，一些新的特性以及Android系统的使用习惯都在改变。由于Android的碎片化相当严重，我们开发应用程序时，既要考虑最新的Android版本，又要考虑那些还停留在旧版本的Android手机。<br>Google理所当然地考虑到这一点，因此我们在新建一个工程时，会选择该应用支持的最低Android版本以及最高Android版本。如下图所示<br><img src="Screen%20Shot%202016-07-12%20at%2023.07.04.png" alt=""><br>Android Studio还非常人性化地提示你该版本之后的应用在Play store里面占有的比例，虽然这并没有太大的用处。我们更多的时候还是需要通过自身应用的特性来进行选择。比如以使用Ble为基础的应用必须将最低Android版本设置为Android4.3，因为只有不低于这个版本的Android系统才提供Ble的api支持。<br>随着应用的开发，有可能在后期想更改最初的设置，这也是可以的。eclipse中的工程通过AndroidManifest.xml文件来更改，Android Studio通过应用的biuld.gradle文件来更改。由于已经很久不用eclipse了，这里只贴一下Android Studio中的核心代码。<br>    defaultConfig {<br>            applicationId “com.example.fbi.testapplication”<br>            minSdkVersion 15<br>            targetSdkVersion 23<br>            versionCode 1<br>            versionName “1.0”<br>        }<br>这里分别记录了应用包名，最小支持的版本，应用的目标版本以及应用版本号等信息。当targetSdkVersion没有设置时，默认使用minSDKVersion版本作为应用的目标版本。除此之外，还有maxSdkVersion作为应用的最高支持版本，不过该值一般不进行设置，因为一旦用户的系统版本高于该值，该应用就有可能被移除或者不被允许安装。<br>在Android 6.0 引入动态权限管理之后，动态地根据版本信息去进行相应操作成为开发者必备技能。这里不讨论动态权限的好与坏，如果需要获取系统的版本，只需要通过Build类就可得到，如下所示<br>    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.M) {<br>          //当前系统版本不低于Android 6.0<br>          dealPermissions();<br>        }<br>Build类主要包含了系统的一些信息，类中变量全是static final类型。其中一个比较有趣的方法是getString(String property)。该方法通过调用SystemProperties.get(property, UNKNOWN)方法去获取系统的一些属性。而在SystemProperties中的get方法，则是调用了一个native方法native_get(String key, String def)来获取属性。由此可以看出，获取系统属性的核心代码是通过c语言来实现的。<br>从理论上来做好Android的各种适配并不难，难就难在实际的工作量会翻倍，为了打造一个完美的应用，我们需要付出更多的时间精力来细扣很多细节，也许心怀一些工匠精神（不知道会不会被黑），才能做出让用户满意的应用吧。</p>
 
-          
-        
       
     </div>
     
     <div>
       
+        
+      
     </div>
 
     <div>
+      
+        
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/29/Java-clone/" itemprop="url">
-                  浅谈Java之clone
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-06-29T22:43:02+08:00" content="2016-06-29">
-              2016-06-29
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
-          
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/Android/" rel="tag">#Android</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>这是第一篇自己搭建的blog，就拿今天code review中涉及到的Java clone这一话题开刀吧，也算是熟悉一下MD的使用。。。<br></p>
-<p>在被老大问到Java当中的普通clone是浅拷贝和深拷贝时，凭借着第六感回答了浅拷贝，然后就被要求用代码来证明，然后就简单写了一下代码，发现如果没有对clone方法做一些手脚的话，Java是默认的浅拷贝，不幸被我答对了（偷笑），如果需要进行深拷贝的话，修改一下代码就行了。好啦，故事就是这样，那我们来稍微详细地分析一下这个问题吧。<br></p>
-<p>首先介绍一下浅拷贝和深拷贝的概念吧。所谓的<strong>浅拷贝</strong>是指拷贝之后的对象保持原对象的所有属性，这里既包括基本类型数据以及对象引用。对于基本类型数据，拷贝对象和原始对象拥有相同的值，而对于对象引用，拷贝对象和原始对象拥有相同的引用，即都指向堆当中的同一对象。而<strong>深拷贝</strong>则是指拷贝对象和原对象拥有相同的基本类型数据以及不同的对象引用，但在堆中的对象的所有属性完全相同，即深拷贝对于对象属性，会在堆中开辟新空间完全拷贝原对象中所引用的对象，然后令本身的对象引用指向新地址，这样，修改拷贝对象中的引用对象的属性并不会影响原对象。<br></p>
-<p>最原始的clone方法出现在java.lang.Object这个类里面，用于创建并且返回一个对象的拷贝。我们知道，Java中所有对象都默认是继承了java.lang.Object这个类，因此，既然对象的祖先提供了clone这个方法来进行对象拷贝，那理所当然子类可以调用这个方法来实现对象本身的拷贝。然而不幸的是，java.lang.Object中这个方法是protected，因此子类对象并不能顺利地直接调用，那怎么办？直接Override呗，在方法中调用super.clone()方法就可以进行默认的对象拷贝了。当然，有个坑就是该<strong>对象必须实现Cloneable接口</strong>，否者运行时会出现CloneNotSupportedException异常。嗯，简单看看代码吧<br></p>
-<pre><code>public class People implements Cloneable{
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/29/Java-clone/" rel="next" title="浅谈Java之clone">
+                <i class="fa fa-chevron-left"></i> 浅谈Java之clone
+              </a>
+            
+          </div>
 
-    private String name;
-
-    public People(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    protected Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-}
-</code></pre><p>简单实现了Cloneable接口的People类，里面包含一个String类型的属性，以及构造方法和get/set函数，Override的clone函数调用了super.clone()方法来调用Object类中的clone方法。<br></p>
-<p>然后是测试代码，简单创建一个People对象，然后调用clone方法来得到拷贝的新对象。比较拷贝对象与原对象的属性情况，然后修改拷贝对象的属性，再次比较，代码很简单。</p>
-<pre><code>public static void main(String[] args) {
-    People people = new People(&quot;zhuimengfb&quot;);
-    People peopleClone = (People) people.clone();
-
-    System.out.println(&quot;original people name: &quot; + people.getName());
-    System.out.println(&quot;clone people name: &quot; + peopleClone.getName());
-
-    peopleClone.setName(&quot;blog&quot;);
-
-    System.out.println(&quot;after change original name: &quot; + people.getName());
-    System.out.println(&quot;after change clone name: &quot; + peopleClone.getName());
-}
-</code></pre><p>结果如下图<br><br><img src="http://i.imgur.com/5ixBuK9.png" alt=""><br><br>从结果可以看出拷贝对象的属性修改并不会改变原对象的属性，咋一看可以理解为深拷贝。当然，这只是该对象中的属性都是基本类型的情况下（在Java中，对String类型的操作可以看成基本类型操作）,一旦对象中存在对象的引用，拷贝之后就不是这样了，我们修改People类，让其持有一个对象引用属性。新建一个Body类描述身高体重信息，代码如下<br></p>
-<pre><code>public class Body {
-
-    private double height;
-    private double weight;
-
-    public Body(double height, double weight) {
-        this.height = height;
-        this.weight = weight;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    @Override
-    public String toString() {
-        return &quot;Body height: &quot; + getHeight() + &quot;cm &quot; + &quot;weight: &quot; + getWeight() + &quot;kg&quot;;
-    }
-}
-</code></pre><p>然后在People类中添加Body属性，并修改相应的构造函数和get/set方法。并且修改测试方法<br></p>
-<pre><code>public static void main(String[] args) {
-    People people = new People(&quot;zhuimengfb&quot;, new Body(170, 60));
-    People peopleClone = (People) people.clone();
-
-    System.out.println(&quot;original &quot; + people.toString());
-    System.out.println(&quot;clone &quot; + peopleClone.toString());
-
-    peopleClone.setName(&quot;blog&quot;);
-    peopleClone.getBody().setHeight(175);
-    peopleClone.getBody().setWeight(64);
-
-    System.out.println(&quot;after change original &quot; + people.toString());
-    System.out.println(&quot;after change clone &quot; + peopleClone.toString());
-}
-</code></pre><p>运行的结果如下图<br><br><img src="http://i.imgur.com/NSdbwAD.png" alt=""><br><br>从结果可以看出，修改了拷贝对象中的引用对象属性，原始对象中所引用的对象也发生了改变，着就说明了<strong>默认的clone函数是一个浅拷贝</strong>。<br></p>
-<p>那么要如何实现深拷贝了，这只需要在Override的clone方法中做点手脚就行了，既然super.clone()方法把对象中的引用属性直接拷贝过来，那么我们可以创建一个新的对象，然后修改这个引用关系即可。直接看代码吧<br></p>
-<pre><code>protected Object clone() {
-    People people = null;
-    try {
-        people = (People) super.clone();
-    } catch (CloneNotSupportedException e) {
-        e.printStackTrace();
-    }
-    people.setBody(new Body(body.getHeight(), body.getWeight()));
-    return people;
-}
-</code></pre><p>修改之后，再次运行测试，得到的结果如下图<br><br><img src="http://i.imgur.com/OtoVqbn.png" alt=""><br><br>可以看出修改拷贝对象的引用对象属性并不会改变原始对象的引用对象属性，这样就实现了深拷贝。<br><br>由于Java中默认的clone()方法实现的是浅拷贝，所以当项目中需要进行深拷贝时，建议重新写一个deepClone()方法来实现深拷贝，这样能避免不同的程序员写代码时造成误解。<br></p>
-<p>第一篇blog算是写完了，对MD的一些东西也算有了了解，撒花。</p>
-
-          
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -510,6 +333,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -529,8 +356,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -573,6 +409,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言适配"><span class="nav-number">1.</span> <span class="nav-text">语言适配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#屏幕尺寸适配"><span class="nav-number">2.</span> <span class="nav-text">屏幕尺寸适配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android版本适配"><span class="nav-number">3.</span> <span class="nav-text">Android版本适配</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -669,6 +516,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
