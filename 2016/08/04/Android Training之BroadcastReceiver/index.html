@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="zhuimengfb's blog">
 <meta property="og:description" content="BroadcastReceiver&amp;#x4F5C;&amp;#x4E3A;Android&amp;#x56DB;&amp;#x5927;&amp;#x7EC4;&amp;#x4EF6;&amp;#x4E4B;&amp;#x4E00;&amp;#xFF0C;&amp;#x867D;&amp;#x7136;&amp;#x7528;&amp;#x8D77;&amp;#x6765;&amp;#x76F8;&amp;#x8F83;&amp;#x4E8E;&amp;#x5176;&amp;#x4ED6;&amp;#x4E09;&amp;#x5927;&amp;#x7EC4;">
 <meta property="og:image" content="http://two.yt/images/2016/08/04/v4on.jpg">
-<meta property="og:updated_time" content="2016-08-04T08:55:39.000Z">
+<meta property="og:updated_time" content="2016-08-04T09:04:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Training之BroadcastReceiver">
 <meta name="twitter:description" content="BroadcastReceiver&amp;#x4F5C;&amp;#x4E3A;Android&amp;#x56DB;&amp;#x5927;&amp;#x7EC4;&amp;#x4EF6;&amp;#x4E4B;&amp;#x4E00;&amp;#xFF0C;&amp;#x867D;&amp;#x7136;&amp;#x7528;&amp;#x8D77;&amp;#x6765;&amp;#x76F8;&amp;#x8F83;&amp;#x4E8E;&amp;#x5176;&amp;#x4ED6;&amp;#x4E09;&amp;#x5927;&amp;#x7EC4;">
@@ -270,7 +270,7 @@
 
       
         <p>BroadcastReceiver&#x4F5C;&#x4E3A;Android&#x56DB;&#x5927;&#x7EC4;&#x4EF6;&#x4E4B;&#x4E00;&#xFF0C;&#x867D;&#x7136;&#x7528;&#x8D77;&#x6765;&#x76F8;&#x8F83;&#x4E8E;&#x5176;&#x4ED6;&#x4E09;&#x5927;&#x7EC4;&#x4EF6;&#x66F4;&#x4E3A;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x8981;&#x7EC6;&#x5316;&#x7684;&#x70B9;&#x5374;&#x5F02;&#x5E38;&#x591A;&#x3002;&#x5B66;&#x4F1A;&#x4F7F;&#x7528;BroadcastReceiver&#x53EF;&#x80FD;&#x53EA;&#x8981;&#x4E09;&#x5206;&#x949F;&#xFF0C;&#x4F46;&#x5168;&#x90E8;&#x638C;&#x63E1;BroadcastReceiver&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x4E09;&#x5341;&#x5206;&#x949F;&#x3002;</p>
-<!--Read More-->
+<a id="more"></a>
 <p>&#x4ECE;&#x540D;&#x5B57;&#x53EF;&#x4EE5;&#x770B;&#x51FA;BroadcastReceiver&#x4E3B;&#x8981;&#x7528;&#x4E8E;Android&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x4E8B;&#x4EF6;&#x901A;&#x77E5;&#x63A5;&#x6536;&#x5668;&#x3002;&#x5F53;&#x7CFB;&#x7EDF;&#x6216;&#x8005;&#x5E94;&#x7528;&#x53D1;&#x9001;&#x5E7F;&#x64AD;&#x65F6;&#xFF0C;&#x6CE8;&#x518C;&#x4E86;&#x76F8;&#x5173;&#x5E7F;&#x64AD;&#x7684;&#x63A5;&#x6536;&#x5668;&#x5C31;&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x5230;&#x53D1;&#x9001;&#x51FA;&#x7684;&#x5E7F;&#x64AD;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;Android&#x7CFB;&#x7EDF;&#x4E2D;&#x6700;&#x57FA;&#x672C;&#x7684;&#x4E8B;&#x4EF6;&#x901A;&#x77E5;&#x53CA;&#x63A5;&#x6536;&#x6A21;&#x578B;&#x3002;&#x53D1;&#x9001;&#x5E7F;&#x64AD;&#x4F7F;&#x7528;&#x7684;&#x662F;ContextImpl&#x7C7B;&#x7684;sendBroadcast(Intent intent)&#x65B9;&#x6CD5;&#x3002;BroadcastReceiver&#x4E3A;&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7EE7;&#x627F;&#x8BE5;&#x7C7B;&#xFF0C;&#x5B9E;&#x73B0;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5E7F;&#x64AD;&#x63A5;&#x6536;&#x5668;&#xFF0C;&#x4E3B;&#x8981;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x7684;&#x65B9;&#x6CD5;&#x4E3A;onReceive(Context context, Intent intent)&#x65B9;&#x6CD5;&#xFF0C;&#x5176;&#x4E2D;context&#x4E3A;&#x53D1;&#x9001;&#x5E7F;&#x64AD;&#x65F6;&#x7684;Context&#xFF0C;intent&#x4E3A;&#x53D1;&#x9001;&#x5E7F;&#x64AD;&#x65F6;&#x4F20;&#x5165;&#x7684;Intent&#x5B9E;&#x4F8B;&#x3002;&#x5177;&#x4F53;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
 <pre><code>class MyReceiver extends BroadcastReceiver{
 
