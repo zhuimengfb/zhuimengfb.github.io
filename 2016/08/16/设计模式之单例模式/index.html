@@ -1,0 +1,676 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="tag:&amp;#x8BBE;&amp;#x8BA1;&amp;#x6A21;&amp;#x5F0F;
+title&amp;#xFF1A;&amp;#x8BBE;&amp;#x8BA1;&amp;#x6A21;&amp;#x5F0F;&amp;#x4E4B;&amp;#x5355;&amp;#x4F8B;&amp;#x6A21;&amp;#x5F0F;&amp;#x5355;&amp;#x4F8B;&amp;#x6A21;&amp;#x5F0F;&amp;#x7B97;&amp;#x662F;&amp;#x4F17;&amp;#x591A;&amp;#x8BBE;&amp;#x8B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zhuimengfb's blog">
+<meta property="og:url" content="http://yoursite.com/2016/08/16/设计模式之单例模式/index.html">
+<meta property="og:site_name" content="zhuimengfb's blog">
+<meta property="og:description" content="tag:&amp;#x8BBE;&amp;#x8BA1;&amp;#x6A21;&amp;#x5F0F;
+title&amp;#xFF1A;&amp;#x8BBE;&amp;#x8BA1;&amp;#x6A21;&amp;#x5F0F;&amp;#x4E4B;&amp;#x5355;&amp;#x4F8B;&amp;#x6A21;&amp;#x5F0F;&amp;#x5355;&amp;#x4F8B;&amp;#x6A21;&amp;#x5F0F;&amp;#x7B97;&amp;#x662F;&amp;#x4F17;&amp;#x591A;&amp;#x8BBE;&amp;#x8B">
+<meta property="og:updated_time" content="2016-08-24T09:35:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zhuimengfb's blog">
+<meta name="twitter:description" content="tag:&amp;#x8BBE;&amp;#x8BA1;&amp;#x6A21;&amp;#x5F0F;
+title&amp;#xFF1A;&amp;#x8BBE;&amp;#x8BA1;&amp;#x6A21;&amp;#x5F0F;&amp;#x4E4B;&amp;#x5355;&amp;#x4F8B;&amp;#x6A21;&amp;#x5F0F;&amp;#x5355;&amp;#x4F8B;&amp;#x6A21;&amp;#x5F0F;&amp;#x7B97;&amp;#x662F;&amp;#x4F17;&amp;#x591A;&amp;#x8BBE;&amp;#x8B">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title>  | zhuimengfb's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuimengfb's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-16T15:38:28+08:00" content="2016-08-16">
+              2016-08-16
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>tag:&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;</p>
+<h2 id="title&#xFF1A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E4B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;"><a href="#title&#xFF1A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E4B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;" class="headerlink" title="title&#xFF1A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E4B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;"></a>title&#xFF1A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E4B;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;</h2><p>&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7B97;&#x662F;&#x4F17;&#x591A;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E2D;&#x8F83;&#x4E3A;&#x7B80;&#x5355;&#x7684;&#x4E00;&#x79CD;&#xFF0C;&#x5176;&#x7528;&#x9014;&#x5C31;&#x50CF;&#x5176;&#x540D;&#x5B57;&#x4E00;&#x6837;&#xFF0C;&#x662F;&#x5E0C;&#x671B;&#x5728;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x4E2D;&#x53EA;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x5E76;&#x4E14;&#x5728;&#x5168;&#x5C40;&#x4E2D;&#x90FD;&#x80FD;&#x8F7B;&#x677E;&#x8BBF;&#x95EE;&#x5230;&#x3002;&#x8981;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#xFF0C;&#x6700;&#x91CD;&#x8981;&#x7684;&#x5C31;&#x662F;&#x4FDD;&#x8BC1;&#x5728;&#x7A0B;&#x5E8F;&#x4E2D;&#x53EA;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x8BE5;&#x5B9E;&#x4F8B;&#xFF0C;&#x56E0;&#x6B64;&#x80AF;&#x5B9A;<strong>&#x9700;&#x8981;&#x79C1;&#x6709;&#x5316;&#x5176;&#x6784;&#x9020;&#x51FD;&#x6570;&#xFF0C;&#x907F;&#x514D;&#x5927;&#x91CF;&#x521B;&#x9020;&#x51FA;&#x5B9E;&#x4F8B;</strong>&#x3002;&#x6839;&#x636E;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x7684;&#x4E0D;&#x540C;&#xFF0C;&#x5927;&#x6982;&#x6709;7&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#xFF0C;&#x4E0D;&#x8FC7;&#x5176;&#x4E2D;&#x4E00;&#x4E9B;&#x65B9;&#x5F0F;&#x90FD;&#x5B58;&#x5728;&#x4E00;&#x4E9B;&#x4E0D;&#x8DB3;&#x548C;&#x9690;&#x60A3;&#x3002;</p>
+<a id="more"></a>
+<p>##&#x997F;&#x6C49;&#x5F0F;</p>
+<p>&#x6240;&#x8C13;&#x997F;&#x6C49;&#x5F0F;&#x662F;&#x6307;&#x7A0B;&#x5E8F;&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x8FDB;&#x884C;&#x7C7B;&#x52A0;&#x8F7D;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x751F;&#x6210;&#x8BE5;&#x552F;&#x4E00;&#x5B9E;&#x4F8B;&#xFF0C;&#x5E76;&#x4E14;&#x7531;&#x4E8E;&#x5176;&#x6784;&#x9020;&#x51FD;&#x6570;&#x7684;&#x79C1;&#x6709;&#x5316;&#xFF0C;&#x5176;&#x4ED6;&#x7C7B;&#x5C31;&#x4E0D;&#x80FD;&#x751F;&#x6210;&#x8BE5;&#x7C7B;&#x7684;&#x65B0;&#x5B9E;&#x4F8B;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x5728;&#x4E00;&#x5B9A;&#x7A0B;&#x5EA6;&#x4E0A;&#x4FDD;&#x8BC1;&#x4E86;&#x5B9E;&#x4F8B;&#x7684;&#x552F;&#x4E00;&#x6027;&#x3002;&#x7B80;&#x5355;&#x770B;&#x770B;&#x4EE3;&#x7801;&#x5427;&#x3002;</p>
+<pre><code>public class Singleton {
+
+      private static final Singleton singleton = new Singleton();
+
+      private Singleton() {
+      }
+
+      public static Singleton getSingleton() {
+        return singleton;
+      }
+}
+</code></pre><p>&#x7A0B;&#x5E8F;&#x5728;&#x52A0;&#x8F7D;Singleton&#x7C7B;&#x65F6;&#xFF0C;&#x4F1A;&#x76F4;&#x63A5;&#x521D;&#x59CB;&#x5316;singleton&#x5B9E;&#x4F8B;&#xFF0C;&#x7136;&#x540E;&#x7531;&#x4E8E;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E3A;private&#xFF0C;&#x56E0;&#x6B64;&#x53EA;&#x80FD;&#x901A;&#x8FC7;getSingleton&#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6;&#x8FD9;&#x552F;&#x4E00;&#x5B9E;&#x4F8B;&#x3002;&#x997F;&#x6C49;&#x5F0F;&#x7684;&#x597D;&#x5904;&#x662F;&#x4EE3;&#x7801;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x4E5F;&#x5B58;&#x5728;&#x4E00;&#x4E9B;&#x4E0D;&#x8DB3;&#xFF0C;&#x7531;&#x4E8E;&#x5176;&#x5728;&#x7A0B;&#x5E8F;&#x542F;&#x52A8;&#x7684;&#x65F6;&#x5019;&#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x6240;&#x4EE5;&#x4E0D;&#x8BBA;&#x5176;&#x662F;&#x5426;&#x7528;&#x5230;&#xFF0C;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x90FD;&#x5B58;&#x5728;&#x8BE5;&#x5B9E;&#x4F8B;&#xFF0C;&#x4E0D;&#x4F46;&#x5F71;&#x54CD;&#x7A0B;&#x5E8F;&#x7684;&#x521D;&#x59CB;&#x5316;&#x901F;&#x5EA6;&#xFF0C;&#x8FD8;&#x5F71;&#x54CD;&#x7A0B;&#x5E8F;&#x5185;&#x5B58;&#x7684;&#x4F7F;&#x7528;&#x3002;&#x9488;&#x5BF9;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x624D;&#x51FA;&#x73B0;&#x4E86;&#x61D2;&#x6C49;&#x5F0F;&#x65B9;&#x6CD5;&#x3002;</p>
+<p>##&#x61D2;&#x6C49;&#x5F0F;</p>
+<p>&#x61D2;&#x6C49;&#x5F0F;&#x5219;&#x662F;&#x6307;&#x5728;&#x9700;&#x8981;&#x7528;&#x5230;&#x8BE5;&#x5B9E;&#x4F8B;&#x7684;&#x65F6;&#x5019;&#x624D;&#x4F1A;&#x53BB;&#x751F;&#x6210;&#x8FD9;&#x552F;&#x4E00;&#x5B9E;&#x4F8B;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x7A0B;&#x5E8F;&#x7684;&#x542F;&#x52A8;&#x901F;&#x5EA6;&#xFF0C;&#x8FD8;&#x80FD;&#x5728;&#x4E00;&#x5B9A;&#x7A0B;&#x5EA6;&#x8282;&#x7EA6;&#x5185;&#x5B58;&#x3002;&#x5148;&#x770B;&#x4EE3;&#x7801;&#x5427;&#x3002;</p>
+<pre><code>public class Singleton {
+
+      private static Singleton singleton;
+
+      private Singleton() {
+      }
+
+      public static Singleton getSingleton() {
+        if (singleton == null) {
+              singleton = new Singleton();
+        }
+        return singleton;
+      }
+}
+</code></pre><p>&#x8BE5;&#x65B9;&#x6CD5;&#x6838;&#x5FC3;&#x662F;&#x5728;&#x8C03;&#x7528;getSingleton&#x65B9;&#x6CD5;&#x65F6;&#x5224;&#x65AD;singleton&#x662F;&#x5426;&#x4E3A;&#x7A7A;&#xFF0C;&#x5F53;&#x4E3A;&#x7A7A;&#x65F6;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#xFF0C;&#x5426;&#x5219;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x8BE5;&#x5B9E;&#x4F8B;&#x3002;&#x56E0;&#x6B64;&#x8BE5;&#x65B9;&#x6CD5;&#x53EA;&#x4F1A;&#x5728;&#x7B2C;&#x4E00;&#x6B21;&#x8C03;&#x7528;&#x65F6;&#x751F;&#x6210;&#x5B9E;&#x4F8B;&#xFF0C;&#x4E4B;&#x540E;&#x518D;&#x6B21;&#x8C03;&#x7528;&#x5219;&#x4F1A;&#x8FD4;&#x56DE;&#x751F;&#x6210;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x56E0;&#x6B64;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x7684;&#x6548;&#x7387;&#x6BD4;&#x997F;&#x6C49;&#x5F0F;&#x66F4;&#x9AD8;&#x3002;&#x4F46;&#x8BD5;&#x60F3;&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#xFF0C;&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;getSingleton&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x65F6;&#x5C31;&#x4F1A;&#x521B;&#x5EFA;&#x4E24;&#x4E2A;singleton&#x5B9E;&#x4F8B;&#xFF0C;&#x56E0;&#x6B64;&#x8BE5;&#x65B9;&#x6CD5;&#x5E76;&#x4E0D;&#x662F;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#x3002;&#x9488;&#x5BF9;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x63D0;&#x51FA;&#x4E86;&#x540C;&#x6B65;&#x61D2;&#x6C49;&#x5F0F;&#x65B9;&#x5F0F;&#x3002;</p>
+<p>##&#x540C;&#x6B65;&#x61D2;&#x6C49;&#x5F0F;</p>
+<p>&#x6240;&#x8C13;&#x540C;&#x6B65;&#x61D2;&#x6C49;&#x5F0F;&#x5C31;&#x662F;&#x4F7F;&#x5F97;getSingleton&#x65B9;&#x6CD5;&#x4E3A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4FDD;&#x8BC1;&#x5728;&#x540C;&#x4E00;&#x65F6;&#x523B;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x80FD;&#x8BBF;&#x95EE;&#x5230;&#x8BE5;&#x65B9;&#x6CD5;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x3002;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
+<pre><code>public class Singleton {
+
+      private static Singleton singleton;
+
+      private Singleton() {
+      }
+
+      public static synchronized Singleton getSingleton() {
+        if (singleton == null) {
+              singleton = new Singleton();
+        }
+        return singleton;
+      }
+}
+</code></pre><p>&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x5728;&#x61D2;&#x6C49;&#x5F0F;&#x7684;&#x524D;&#x63D0;&#x4E0B;&#x628A;getSingleton&#x65B9;&#x6CD5;&#x53D8;&#x4E3A;&#x540C;&#x6B65;&#x800C;&#x5DF2;&#x3002;&#x4F46;&#x603B;&#x6240;&#x5468;&#x77E5;&#x7684;&#x662F;&#x540C;&#x6B65;&#x4F1A;&#x4F7F;&#x5F97;&#x65B9;&#x6CD5;&#x7684;&#x6548;&#x7387;&#x5927;&#x5927;&#x964D;&#x4F4E;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5728;&#x4EFB;&#x4F55;&#x60C5;&#x51B5;&#x4E0B;&#x7684;&#x8BBF;&#x95EE;&#x90FD;&#x662F;&#x540C;&#x6B65;&#x5F0F;&#x8BBF;&#x95EE;&#xFF0C;&#x5BFC;&#x81F4;&#x7A0B;&#x5E8F;&#x6548;&#x7387;&#x5927;&#x6253;&#x6298;&#x6263;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x9488;&#x5BF9;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x8BDE;&#x751F;&#x4E86;&#x53CC;&#x91CD;&#x68C0;&#x67E5;&#x61D2;&#x6C49;&#x5F0F;&#x3002;</p>
+<p>##&#x53CC;&#x91CD;&#x68C0;&#x67E5;&#x61D2;&#x6C49;&#x5F0F;</p>
+<p>&#x7531;&#x4EE5;&#x4E0A;&#x77E5;&#x9053;&#xFF0C;&#x53EA;&#x6709;&#x5728;&#x7B2C;&#x4E00;&#x6B21;&#x8BBF;&#x95EE;getSingleton&#x65B9;&#x5F0F;&#x65F6;&#x5B58;&#x5728;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x9690;&#x60A3;&#xFF0C;&#x5982;&#x679C;&#x5B9E;&#x4F8B;&#x5DF2;&#x7ECF;&#x521B;&#x5EFA;&#x597D;&#x4E86;&#xFF0C;&#x53CA;&#x65F6;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;&#x4E5F;&#x4E0D;&#x4F1A;&#x4EA7;&#x751F;&#x65B0;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x4FDD;&#x8BC1;&#x5728;&#x7B2C;&#x4E00;&#x6B21;&#x521B;&#x5EFA;&#x5B9E;&#x4F8B;&#x7684;&#x65F6;&#x5019;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x5373;&#x53EF;&#x3002;&#x5148;&#x770B;&#x4EE3;&#x7801;&#x5427;&#x3002;</p>
+<pre><code>public class Singleton {
+
+      private static volatile Singleton singleton;
+
+      private Singleton() {
+      }
+
+      public static Singleton getSingleton() {
+        if (singleton == null) {
+              synchronized (Singleton.class) {
+                if (singleton == null) {
+                      singleton = new Singleton();
+                }
+              }
+        }
+        return singleton;
+      }
+}
+</code></pre><p>&#x5F53;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;&#x5230;getSingleton&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x8FDB;&#x884C;&#x7B2C;&#x4E00;&#x6B21;&#x5224;&#x7A7A;&#x4E4B;&#x540E;&#xFF0C;&#x7531;&#x4E8E;&#x540C;&#x6B65;&#x5757;&#x7684;&#x4F5C;&#x7528;&#xFF0C;&#x540C;&#x6B65;&#x5757;&#x91CC;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x80FD;&#x8BBF;&#x95EE;&#x5230;&#xFF0C;&#x8FD9;&#x65F6;&#x518D;&#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x5224;&#x7A7A;&#x5904;&#x7406;&#xFF0C;&#x5982;&#x679C;&#x4E3A;&#x7A7A;&#xFF0C;&#x5219;&#x751F;&#x6210;&#x5B9E;&#x4F8B;&#x3002;<strong>&#x6CE8;&#x610F;&#x5728;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4E2D;&#xFF0C;singleton&#x5B9E;&#x4F8B;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;volatile&#x5C5E;&#x6027;&#xFF0C;&#x8BE5;&#x5C5E;&#x6027;&#x80FD;&#x4FDD;&#x8BC1;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x4FEE;&#x6539;&#x8BE5;&#x5B9E;&#x4F8B;&#x4E4B;&#x540E;&#x4F1A;&#x7ACB;&#x9A6C;&#x5199;&#x56DE;&#x5185;&#x5B58;</strong>&#x3002;&#x56E0;&#x6B64;&#x5F53;&#x7B2C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x8BBF;&#x95EE;&#x7ED3;&#x675F;&#x540E;&#xFF0C;&#x5C06;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#xFF0C;&#x5E76;&#x4E14;&#x5B9E;&#x4F8B;&#x4F1A;&#x5199;&#x56DE;&#x4E3B;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x8FD9;&#x65F6;&#x7B2C;&#x4E8C;&#x4E2A;&#x7EBF;&#x7A0B;&#x8FDB;&#x5165;&#x540C;&#x6B65;&#x5757;&#xFF0C;&#x8FDB;&#x884C;&#x5224;&#x7A7A;&#x5904;&#x7406;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x8BE5;&#x5B9E;&#x4F8B;&#x5DF2;&#x7ECF;&#x4E0D;&#x4E3A;&#x7A7A;&#xFF0C;&#x5219;&#x4E0D;&#x4F1A;&#x8FDB;&#x884C;&#x521B;&#x5EFA;&#x3002;&#x56E0;&#x6B64;&#x8BE5;&#x65B9;&#x5F0F;&#x53EA;&#x4F1A;&#x5728;&#x7B2C;&#x4E00;&#x6B21;&#x521B;&#x5EFA;&#x5B9E;&#x4F8B;&#x65F6;&#x7528;&#x540C;&#x6B65;&#x5757;&#x7684;&#x65B9;&#x5F0F;&#x89E3;&#x51B3;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x9690;&#x60A3;&#xFF0C;&#x76F8;&#x6BD4;&#x8F83;&#x4E8E;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x65B9;&#x5F0F;&#x6548;&#x7387;&#x66F4;&#x9AD8;&#x3002;</p>
+<p>##&#x5185;&#x90E8;&#x7C7B;&#x65B9;&#x5F0F;</p>
+<p>&#x6240;&#x8C13;&#x5185;&#x90E8;&#x7C7B;&#x65B9;&#x5F0F;&#x662F;&#x6307;&#x5C06;&#x9700;&#x8981;&#x7684;&#x5355;&#x4F8B;&#x7C7B;&#x4EE5;&#x5185;&#x90E8;&#x7C7B;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x521B;&#x5EFA;&#x3002;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF0C;&#x5185;&#x90E8;&#x7C7B;&#x53EA;&#x6709;&#x5728;&#x8C03;&#x7528;&#x7684;&#x65F6;&#x5019;&#x624D;&#x4F1A;&#x521D;&#x59CB;&#x5316;&#x3002;&#x7B80;&#x5355;&#x770B;&#x770B;&#x4EE3;&#x7801;</p>
+<pre><code>public class Singleton {
+
+    private Singleton() {
+    }
+
+    public static Singleton getSingleton() {
+        return SingletonHolder.singleton;
+    }
+
+    private static class SingletonHolder {
+        private static Singleton singleton = new Singleton();
+    }
+}
+</code></pre><p>&#x5728;Singleton&#x7C7B;&#x52A0;&#x8F7D;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5E76;&#x4E0D;&#x4F1A;&#x521D;&#x59CB;&#x5316;Singleton&#x5BF9;&#x8C61;&#xFF0C;&#x53EA;&#x6709;&#x5728;&#x8C03;&#x7528;getSingleton&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x624D;&#x4F1A;&#x52A0;&#x8F7D;&#x5185;&#x90E8;&#x7C7B;&#x5E76;&#x4E14;&#x521D;&#x59CB;&#x5316;Singleton&#x5BF9;&#x8C61;&#xFF0C;&#x5B9E;&#x73B0;&#x61D2;&#x52A0;&#x8F7D;&#x3002;</p>
+<p>##&#x5B58;&#x5728;&#x7684;&#x95EE;&#x9898;</p>
+<p>&#x4EE5;&#x4E0A;&#x63D0;&#x5230;&#x7684;&#x65B9;&#x5F0F;&#x90FD;&#x4E0D;&#x80FD;&#x907F;&#x514D;&#x540C;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x5373;&#x9632;&#x53CD;&#x5C04;&#x3002;&#x5373;&#x4F7F;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x90FD;&#x58F0;&#x540D;&#x4E3A;private&#xFF0C;Java&#x4E2D;&#x7684;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x4F9D;&#x7136;&#x80FD;&#x591F;&#x8C03;&#x7528;&#x8BE5;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x6765;&#x751F;&#x6210;&#x5B9E;&#x4F8B;&#x3002;&#x52A0;&#x5165;&#x4EE5;&#x4E0B;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;</p>
+<pre><code>public static void main(String[] args) {
+    System.out.println(Singleton.getSingleton().toString());
+    try {
+        Constructor constructor = Class.forName(&quot;Singleton&quot;).getDeclaredConstructor();
+        constructor.setAccessible(true);
+        Singleton singleton = (Singleton) constructor.newInstance();
+        Singleton singleton2 = (Singleton) constructor.newInstance();
+        System.out.println(singleton.toString());
+        System.out.println(singleton2.toString());
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+</code></pre><p>&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x91CC;&#x9762;&#x7B80;&#x5355;&#x5904;&#x7406;&#x4E86;&#x5F02;&#x5E38;&#x3002;&#x4ECE;&#x6253;&#x5370;&#x53F0;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x4E09;&#x4E2A;&#x5B9E;&#x4F8B;&#x7684;&#x5C5E;&#x4E8E;&#x540C;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x4F46;hashcode&#x503C;&#x5E76;&#x4E0D;&#x76F8;&#x540C;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x662F;&#x5C5E;&#x4E8E;&#x4E0D;&#x540C;&#x7684;&#x5BF9;&#x8C61;&#x3002;</p>
+<pre><code>Singleton@60e53b93
+Singleton@5e2de80c
+Singleton@1d44bcfa
+</code></pre><p>&#x6240;&#x4EE5;&#x4EE5;&#x4E0A;&#x65B9;&#x5F0F;&#x90FD;&#x4E0D;&#x80FD;&#x9632;&#x6B62;Java&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x6765;&#x8C03;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;&#x521B;&#x5EFA;&#x66F4;&#x591A;&#x7684;&#x5B9E;&#x4F8B;&#x3002;</p>
+<p>&#x7F51;&#x4E0A;&#x6709;&#x4EBA;&#x8BF4;&#x7528;&#x8FC7;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x6807;&#x5FD7;&#x4F4D;&#xFF0C;&#x4F7F;&#x5F97;&#x6784;&#x9020;&#x51FD;&#x6570;&#x5728;&#x7B2C;&#x4E8C;&#x6B21;&#x8C03;&#x7528;&#x7684;&#x65F6;&#x5019;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x963B;&#x6B62;&#x751F;&#x6210;&#x65B0;&#x7684;&#x5B9E;&#x4F8B;&#x3002;&#x7B80;&#x5355;&#x4EE3;&#x7801;&#x5982;&#x4E0B;</p>
+<pre><code>public class Singleton {
+
+    private static boolean flag = false;
+
+    private Singleton() {
+        if (!flag) {
+            flag = true;
+        } else {
+            try {
+                throw new Exception(&quot;&#x5355;&#x4F8B;&#x5DF2;&#x7ECF;&#x521B;&#x5EFA;,&#x4E0D;&#x80FD;&#x521B;&#x5EFA;&#x7B2C;&#x4E8C;&#x4E2A;&#x5355;&#x4F8B;&quot;);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static Singleton getSingleton() {
+        return SingletonHolder.singleton;
+    }
+
+    private static class SingletonHolder {
+        private static Singleton singleton = new Singleton();
+    }
+}
+</code></pre><p>&#x7684;&#x786E;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5728;&#x4E00;&#x5B9A;&#x7A0B;&#x5EA6;&#x4E0A;&#x80FD;&#x89E3;&#x51B3;&#x521B;&#x5EFA;&#x7B2C;&#x4E8C;&#x4E2A;&#x5B9E;&#x4F8B;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x7136;&#x800C;&#xFF0C;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x6211;&#x4EEC;&#x4F9D;&#x7136;&#x53EF;&#x4EE5;&#x627E;&#x5230;&#x8BE5;&#x7C7B;&#x7533;&#x660E;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x5373;flag&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;&#x6539;&#x53D8;&#x8BE5;&#x6807;&#x5FD7;&#x4F4D;&#x4F9D;&#x7136;&#x80FD;&#x5B9E;&#x73B0;&#x521B;&#x5EFA;&#x7B2C;&#x4E8C;&#x4E2A;&#x5355;&#x4F8B;&#x3002;&#x6240;&#x4EE5;&#x7F51;&#x4E0A;&#x7684;&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#x4E0D;&#x662F;&#x5F88;&#x9760;&#x8C31;&#x3002;&#x771F;&#x6B63;&#x5B9E;&#x73B0;&#x9632;&#x53CD;&#x5C04;&#x8FD8;&#x662F;&#x5F97;&#x4F9D;&#x9760;jdk1.5&#x5F15;&#x8FDB;&#x7684;&#x679A;&#x4E3E;&#x65B9;&#x5F0F;&#x3002;</p>
+<p>##&#x679A;&#x4E3E;</p>
+<p>&#x679A;&#x4E3E;&#x7684;&#x51FA;&#x73B0;&#x4F7F;&#x5F97;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x6709;&#x4E86;&#x65B0;&#x7684;&#x65B9;&#x5411;&#xFF0C;&#x56E0;&#x4E3A;&#x679A;&#x4E3E;&#x662F;&#x5929;&#x7136;&#x7684;&#x5355;&#x4F8B;&#xFF0C;&#x5E76;&#x4E14;&#x65E2;&#x80FD;&#x9632;&#x6B62;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#xFF0C;&#x53C8;&#x80FD;&#x9632;&#x6B62;Java&#x7684;&#x53CD;&#x5C04;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x7528;&#x679A;&#x4E3E;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x662F;&#x6700;&#x5B89;&#x5168;&#x7684;&#xFF0C;&#x4EE3;&#x7801;&#x4E5F;&#x76F8;&#x5BF9;&#x7B80;&#x5355;&#x3002;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x5199;&#x4EE3;&#x7801;&#x4E86;&#x3002;</p>
+<p>&#x5176;&#x5B9E;&#x5728;&#x5B9E;&#x9645;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x679A;&#x4E3E;&#x7C7B;&#x6765;&#x5B9E;&#x73B0;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x7528;&#x5F97;&#x76F8;&#x5BF9;&#x8F83;&#x5C11;&#xFF0C;&#x7531;&#x4E8E;&#x679A;&#x4E3E;&#x5728;jdk1.5&#x4E4B;&#x540E;&#x624D;&#x5F15;&#x5165;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#x76F8;&#x5BF9;&#x6709;&#x70B9;&#x964C;&#x751F;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x867D;&#x7136;&#x5176;&#x5B89;&#x5168;&#x6027;&#x5F88;&#x9AD8;&#xFF0C;&#x4F46;&#x5176;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x4F1A;&#x76F8;&#x5BF9;&#x5176;&#x4ED6;&#x65B9;&#x6CD5;&#x66F4;&#x591A;&#xFF0C;&#x7531;&#x4E8E;&#x4E00;&#x822C;&#x5728;&#x7A0B;&#x5E8F;&#x4E2D;&#x5F88;&#x96BE;&#x9047;&#x5230;&#x53CD;&#x5C04;&#x6216;&#x8005;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#xFF0C;&#x56E0;&#x6B64;&#x53EA;&#x9700;&#x8981;&#x4FDD;&#x8BC1;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#x524D;&#x63D0;&#x4E0B;&#x6765;&#x5B9E;&#x73B0;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x5373;&#x53EF;&#x3002;&#x6240;&#x4EE5;&#x5E73;&#x5E38;&#x4F7F;&#x7528;&#x5F97;&#x66F4;&#x591A;&#x7684;&#x65B9;&#x5F0F;&#x8FD8;&#x662F;&#x53CC;&#x91CD;&#x68C0;&#x67E5;&#x9501;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x3002;</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/04/Android Training之BroadcastReceiver/" rel="next" title="Android Training之BroadcastReceiver">
+                <i class="fa fa-chevron-left"></i> Android Training之BroadcastReceiver
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="zhuimengfb" />
+          <p class="site-author-name" itemprop="name">zhuimengfb</p>
+          <p class="site-description motion-element" itemprop="description">persuing happiness</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title：设计模式之单例模式"><span class="nav-number">1.</span> <span class="nav-text">title：设计模式之单例模式</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhuimengfb</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
