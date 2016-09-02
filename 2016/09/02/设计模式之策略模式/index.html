@@ -86,7 +86,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/09/02/设计模式之策略模式/index.html">
 <meta property="og:site_name" content="zhuimengfb's blog">
 <meta property="og:description" content="&amp;#x5F53;&amp;#x770B;&amp;#x5230;&amp;#x7B56;&amp;#x7565;&amp;#x6A21;&amp;#x5F0F;&amp;#x548C;&amp;#x7B80;&amp;#x5355;&amp;#x5DE5;&amp;#x5382;&amp;#x6A21;&amp;#x5F0F;&amp;#x4E4B;&amp;#x540E;&amp;#xFF0C;&amp;#x7A81;&amp;#x7136;&amp;#x6709;&amp;#x70B9;&amp;#x50BB;&amp;#x50BB;&amp;#x5206;&amp;#x4E0D;">
-<meta property="og:updated_time" content="2016-09-02T07:51:41.000Z">
+<meta property="og:updated_time" content="2016-09-02T07:59:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之策略模式与简单工厂模式">
 <meta name="twitter:description" content="&amp;#x5F53;&amp;#x770B;&amp;#x5230;&amp;#x7B56;&amp;#x7565;&amp;#x6A21;&amp;#x5F0F;&amp;#x548C;&amp;#x7B80;&amp;#x5355;&amp;#x5DE5;&amp;#x5382;&amp;#x6A21;&amp;#x5F0F;&amp;#x4E4B;&amp;#x540E;&amp;#xFF0C;&amp;#x7A81;&amp;#x7136;&amp;#x6709;&amp;#x70B9;&amp;#x50BB;&amp;#x50BB;&amp;#x5206;&amp;#x4E0D;">
@@ -378,15 +378,15 @@ public class ChickenHamburger extends Hamburger {
     public static final String TYPE_BEEF = &quot;beef&quot;;
     public static final String TYPE_CHICKEN = &quot;chicken&quot;;
 
-    public static Hamburger createHamburger(String type) throws Exception {
+    public static Hamburger createHamburger(String type) {
         if (type == null) {
-            throw new Exception(&quot;no such hamburger&quot;);
+            return null;
         } else if (type.equals(TYPE_BEEF)) {
             return new BeefHamburger();
         } else if (type.equals(TYPE_CHICKEN)) {
             return new ChickenHamburger();
         } else {
-            throw new Exception(&quot;no such hamburger&quot;);
+            return null;
         }
     }
 }
