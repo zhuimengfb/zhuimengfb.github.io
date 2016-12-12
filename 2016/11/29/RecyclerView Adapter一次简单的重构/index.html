@@ -86,7 +86,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/11/29/RecyclerView Adapter一次简单的重构/index.html">
 <meta property="og:site_name" content="zhuimengfb's blog">
 <meta property="og:description" content="RecyclerView&amp;#x4E0D;&amp;#x7528;&amp;#x591A;&amp;#x8BB2;&amp;#xFF0C;&amp;#x73B0;&amp;#x5728;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5F88;&amp;#x5C11;&amp;#x7528;ListView&amp;#x4E86;&amp;#xFF0C;&amp;#x5927;&amp;#x591A;&amp;#x60C5;&amp;#x51B5;&amp;#x4E0B;&amp;#x90FD;&amp;#x4F7F;&amp;#x7528;Recy">
-<meta property="og:updated_time" content="2016-11-29T07:32:38.000Z">
+<meta property="og:updated_time" content="2016-12-12T14:27:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RecyclerView Adapter一次简单的重构">
 <meta name="twitter:description" content="RecyclerView&amp;#x4E0D;&amp;#x7528;&amp;#x591A;&amp;#x8BB2;&amp;#xFF0C;&amp;#x73B0;&amp;#x5728;&amp;#x5DF2;&amp;#x7ECF;&amp;#x5F88;&amp;#x5C11;&amp;#x7528;ListView&amp;#x4E86;&amp;#xFF0C;&amp;#x5927;&amp;#x591A;&amp;#x60C5;&amp;#x51B5;&amp;#x4E0B;&amp;#x90FD;&amp;#x4F7F;&amp;#x7528;Recy">
@@ -460,7 +460,7 @@
       super(itemView);
     }
 
-    private void bindData(int position) {
+    public void bindData(int position) {
 
     }
   }
@@ -501,6 +501,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/12/拆轮子系列之拆OkHttp/" rel="prev" title="拆轮子系列之拆OkHttp">
+                拆轮子系列之拆OkHttp <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -595,7 +599,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
