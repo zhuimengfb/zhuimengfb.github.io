@@ -1,0 +1,740 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="设计模式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x5BF9;&amp;#x4E8E;&amp;#x4E00;&amp;#x4E2A;&amp;#x7ECF;&amp;#x5178;&amp;#x7684;web&amp;#x9879;&amp;#x76EE;&amp;#x6765;&amp;#x8BF4;&amp;#xFF0C;&amp;#x63A7;&amp;#x5236;&amp;#x5668;+&amp;#x7F13;&amp;#x5B58;+&amp;#x6570;&amp;#x636E;&amp;#x5E93;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x7ECF;&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之享元模式">
+<meta property="og:url" content="http://yoursite.com/2016/12/25/设计模式之享元模式/index.html">
+<meta property="og:site_name" content="zhuimengfb's blog">
+<meta property="og:description" content="&amp;#x5BF9;&amp;#x4E8E;&amp;#x4E00;&amp;#x4E2A;&amp;#x7ECF;&amp;#x5178;&amp;#x7684;web&amp;#x9879;&amp;#x76EE;&amp;#x6765;&amp;#x8BF4;&amp;#xFF0C;&amp;#x63A7;&amp;#x5236;&amp;#x5668;+&amp;#x7F13;&amp;#x5B58;+&amp;#x6570;&amp;#x636E;&amp;#x5E93;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x7ECF;&amp;#x">
+<meta property="og:image" content="http://oe9xsykvg.bkt.clouddn.com/blog/zhuimengfb/share_design.png">
+<meta property="og:image" content="http://oe9xsykvg.bkt.clouddn.com/blog/zhuimengfb/share_design2.png">
+<meta property="og:updated_time" content="2016-12-25T14:07:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式之享元模式">
+<meta name="twitter:description" content="&amp;#x5BF9;&amp;#x4E8E;&amp;#x4E00;&amp;#x4E2A;&amp;#x7ECF;&amp;#x5178;&amp;#x7684;web&amp;#x9879;&amp;#x76EE;&amp;#x6765;&amp;#x8BF4;&amp;#xFF0C;&amp;#x63A7;&amp;#x5236;&amp;#x5668;+&amp;#x7F13;&amp;#x5B58;+&amp;#x6570;&amp;#x636E;&amp;#x5E93;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x7ECF;&amp;#x">
+<meta name="twitter:image" content="http://oe9xsykvg.bkt.clouddn.com/blog/zhuimengfb/share_design.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 设计模式之享元模式 | zhuimengfb's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?32cc932d4c165744315fa3da1f8a235a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuimengfb's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                设计模式之享元模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-25T22:07:55+08:00" content="2016-12-25">
+              2016-12-25
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/25/设计模式之享元模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/25/设计模式之享元模式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x7ECF;&#x5178;&#x7684;web&#x9879;&#x76EE;&#x6765;&#x8BF4;&#xFF0C;&#x63A7;&#x5236;&#x5668;+&#x7F13;&#x5B58;+&#x6570;&#x636E;&#x5E93;&#x662F;&#x4E00;&#x79CD;&#x7ECF;&#x5178;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x5176;&#x4E2D;&#x7684;&#x7F13;&#x5B58;&#x5C31;&#x662F;&#x4E3A;&#x4E86;&#x7F13;&#x89E3;&#x9AD8;&#x5E76;&#x53D1;&#x60C5;&#x51B5;&#x4E0B;&#x6570;&#x636E;&#x5E93;&#x67E5;&#x8BE2;&#x8017;&#x65F6;&#x95EE;&#x9898;&#x3002;&#x5C31;&#x62FF;&#x6700;&#x8FD1;&#x7684;&#x6625;&#x8FD0;&#x6765;&#x8BF4;&#xFF0C;&#x5176;&#x4E2D;&#x4E00;&#x4E9B;&#x6570;&#x636E;&#x80AF;&#x5B9A;&#x662F;&#x901A;&#x8FC7;&#x7F13;&#x5B58;&#x7684;&#x65B9;&#x5F0F;&#x5FEB;&#x901F;&#x54CD;&#x5E94;&#xFF0C;&#x907F;&#x514D;&#x9AD8;&#x5E76;&#x53D1;&#x60C5;&#x51B5;&#x4E0B;&#x7684;&#x670D;&#x52A1;&#x8D85;&#x65F6;&#x3002;&#x5728;Android&#x4E2D;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x8981;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x5927;&#x591A;&#x6570;&#x60C5;&#x51B5;&#x4F1A;&#x901A;&#x8FC7;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53BB;new&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x51FA;&#x6765;&#xFF0C;&#x8BD5;&#x60F3;&#x5982;&#x679C;&#x5728;&#x9AD8;&#x5E76;&#x53D1;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4EA7;&#x751F;&#x5927;&#x91CF;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x7528;&#x5B8C;&#x4E4B;&#x540E;&#x5783;&#x573E;&#x56DE;&#x6536;&#x4F1A;&#x975E;&#x5E38;&#x6D88;&#x8017;&#x8D44;&#x6E90;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x4E5F;&#x9700;&#x8981;&#x5229;&#x7528;&#x7F13;&#x5B58;&#x8FD9;&#x79CD;&#x6982;&#x5FF5;&#x6765;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x5728;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E2D;&#xFF0C;&#x79F0;&#x4E4B;&#x4E3A;&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#x3002;</p>
+<a id="more"></a>
+<h2 id="&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#x7B80;&#x5355;&#x4F8B;&#x5B50;"><a href="#&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#x7B80;&#x5355;&#x4F8B;&#x5B50;" class="headerlink" title="&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#x7B80;&#x5355;&#x4F8B;&#x5B50;"></a>&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#x7B80;&#x5355;&#x4F8B;&#x5B50;</h2><p>&#x4F9D;&#x7136;&#x7528;&#x706B;&#x8F66;&#x7968;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x67E5;&#x8BE2;&#x706B;&#x8F66;&#x7968;&#x65F6;&#xFF0C;&#x8F93;&#x5165;&#x8D77;&#x59CB;&#x70B9;&#x548C;&#x8FBE;&#x5230;&#x57CE;&#x5E02;&#xFF0C;&#x4FBF;&#x4F1A;&#x5F97;&#x5230;&#x8BE5;&#x7EBF;&#x8DEF;&#x7684;&#x706B;&#x8F66;&#x7968;&#x4FE1;&#x606F;&#xFF0C;&#x5305;&#x62EC;&#x5EA7;&#x4F4D;&#x3001;&#x7968;&#x4EF7;&#x7B49;&#x3002;&#x5E38;&#x89C4;&#x4E0B;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x6765;&#x5F97;&#x5230;&#x3002;</p>
+<pre><code>public class TicketInfo {
+
+    private String startCity;
+    private String endCity;
+    private int price;
+
+    public TicketInfo(String startCity, String endCity, int price) {
+        this.startCity = startCity;
+        this.endCity = endCity;
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;TicketInfo  &quot; + &quot;startCity:&quot; + startCity + &quot;  &quot; + &quot;endCity: &quot; + endCity + &quot;  &quot; + &quot;price: &quot; + price;
+    }
+}
+
+public class TicketFactory {
+
+    public static void main(String[] args) {
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+    }
+
+    public static TicketInfo createTicket(String startCity, String endCity) {
+        int price = new Random().nextInt(500);
+        return new TicketInfo(startCity, endCity, price);
+    }
+}
+</code></pre><p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#x56FE;<br><img src="http://oe9xsykvg.bkt.clouddn.com/blog/zhuimengfb/share_design.png" alt=""></p>
+<p>&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4F1A;&#x521B;&#x5EFA;&#x5F88;&#x591A;&#x591A;&#x4F59;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x5BFC;&#x81F4;&#x5783;&#x573E;&#x56DE;&#x6536;&#x65F6;&#x8017;&#x8D39;&#x8D44;&#x6E90;&#x3002;&#x90A3;&#x4E48;&#x901A;&#x8FC7;&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;Map&#x6765;&#x5B58;&#x50A8;&#x5BF9;&#x8C61;&#xFF0C;&#x5F53;&#x9700;&#x8981;&#x65F6;&#x5148;&#x67E5;&#x627E;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x624D;&#x8FDB;&#x884C;&#x521B;&#x5EFA;&#x3002;&#x7B80;&#x5355;&#x4FEE;&#x6539;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#x3002;</p>
+<pre><code>public class TicketFactory {
+    private static Map&lt;String, TicketInfo&gt; map = new HashMap&lt;&gt;();
+
+    public static void main(String[] args) {
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+        System.out.println(createTicket(&quot;shanghai&quot;, &quot;chengdu&quot;));
+    }
+
+    public static TicketInfo createTicket(String startCity, String endCity) {
+        String key = startCity + &quot;-&quot; + endCity;
+        if (map.get(key) != null) {
+            System.out.println(&quot;get ticket from map&quot;);
+            return map.get(key);
+        } else {
+            System.out.println(&quot;create a ticket&quot;);
+            int price = new Random().nextInt(500);
+            TicketInfo ticketInfo = new TicketInfo(startCity, endCity, price);
+            map.put(key, ticketInfo);
+            return ticketInfo;
+        }
+    }
+}
+</code></pre><p>&#x8FD0;&#x884C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;<br><img src="http://oe9xsykvg.bkt.clouddn.com/blog/zhuimengfb/share_design2.png" alt=""><br>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x53EA;&#x6709;&#x7B2C;&#x4E00;&#x6B21;&#x521B;&#x5EFA;&#x65F6;&#x624D;&#x521B;&#x5EFA;&#x51FA;&#x65B0;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x4E4B;&#x540E;&#x90FD;&#x662F;&#x4ECE;map&#x4E2D;&#x83B7;&#x53D6;&#x5230;&#x5DF2;&#x7ECF;&#x521B;&#x5EFA;&#x597D;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x6837;&#x4FBF;&#x5927;&#x5927;&#x51CF;&#x5C11;&#x4E86;&#x5185;&#x5B58;&#x6D88;&#x8017;&#x4EE5;&#x53CA;&#x5783;&#x573E;&#x56DE;&#x6536;&#x65F6;&#x7684;&#x8D44;&#x6E90;&#x8017;&#x8D39;&#x3002;</p>
+<p>&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#x5C31;&#x662F;&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#xFF0C;&#x901A;&#x8FC7;&#x5916;&#x90E8;&#x72B6;&#x6001;&#x5B58;&#x50A8;&#x76F8;&#x5E94;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x518D;&#x6B21;&#x4F7F;&#x7528;&#x65F6;&#x4E0D;&#x5FC5;&#x91CD;&#x65B0;&#x521B;&#x5EFA;&#x65B0;&#x7684;&#x5BF9;&#x8C61;&#x3002;&#x5728;Android&#x4E2D;&#xFF0C;&#x4E5F;&#x6709;&#x4E2A;&#x7ECF;&#x5178;&#x4F8B;&#x5B50;&#xFF0C;&#x90A3;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x4F7F;&#x7528;Handler&#x65F6;&#x83B7;&#x53D6;Message&#x5BF9;&#x8C61;&#x3002;</p>
+<h2 id="Android&#x4E2D;&#x7684;Message&#x83B7;&#x53D6;"><a href="#Android&#x4E2D;&#x7684;Message&#x83B7;&#x53D6;" class="headerlink" title="Android&#x4E2D;&#x7684;Message&#x83B7;&#x53D6;"></a>Android&#x4E2D;&#x7684;Message&#x83B7;&#x53D6;</h2><p>&#x60F3;&#x5F53;&#x521D;&#x8FD8;&#x662F;&#x83DC;&#x9E1F;&#x7684;&#x65F6;&#x5019;&#xFF08;&#x867D;&#x7136;&#x73B0;&#x5728;&#x4F9D;&#x7136;&#x8FD8;&#x662F;&#x5F88;&#x83DC;&#xFF09;&#xFF0C;&#x7528;Handler&#x6765;&#x5904;&#x7406;&#x6D88;&#x606F;&#x8C03;&#x5EA6;&#x65F6;&#xFF0C;&#x8981;&#x4F20;&#x9012;&#x4E00;&#x4E2A;Message&#x5BF9;&#x8C61;&#x7ED9;Handler&#xFF0C;&#x5F53;&#x65F6;&#x6BCF;&#x6B21;&#x90FD;&#x662F;new&#x4E00;&#x4E2A;Message&#x5BF9;&#x8C61;&#x51FA;&#x6765;&#xFF0C;&#x7136;&#x540E;&#x4F20;&#x9012;&#x7ED9;Handler&#x5BF9;&#x8C61;&#x3002;&#x73B0;&#x5728;&#x4E00;&#x60F3;&#xFF0C;&#x591A;&#x6D6A;&#x8D39;&#x8D44;&#x6E90;&#x554A;&#xFF0C;&#x5176;&#x5B9E;Android&#x5DF2;&#x7ECF;&#x4E3A;&#x6211;&#x4EEC;&#x641E;&#x597D;&#x4E86;&#x65B9;&#x6CD5;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x8C03;&#x7528;&#x5C31;&#x884C;&#x3002;&#x5728;Handler&#x4E2D;&#x5C01;&#x88C5;&#x597D;&#x4E86;obtainMessage&#x8FD9;&#x4E00;&#x65B9;&#x6CD5;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x8BE5;&#x65B9;&#x6CD5;&#x6765;&#x590D;&#x7528;Message&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<pre><code>public final Message obtainMessage()
+{
+    return Message.obtain(this);
+}
+</code></pre><p>&#x800C;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;Message&#x7684;obtain&#x8FD9;&#x4E00;&#x65B9;&#x6CD5;&#x4FBF;&#x662F;&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#x7684;&#x4F7F;&#x7528;&#x3002;</p>
+<pre><code>public static Message obtain(Handler h) {
+    Message m = obtain();
+    m.target = h;
+
+    return m;
+}
+
+public static Message obtain() {
+    synchronized (sPoolSync) {
+        if (sPool != null) {
+            Message m = sPool;
+            sPool = m.next;
+            m.next = null;
+            m.flags = 0; // clear in-use flag
+            sPoolSize--;
+            return m;
+        }
+    }
+    return new Message();
+}
+</code></pre><p>&#x4ED4;&#x7EC6;&#x89C2;&#x5BDF;&#x4FBF;&#x53EF;&#x53D1;&#x73B0;&#x8FD9;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x4EAB;&#x5143;&#x6A21;&#x5F0F;&#x7684;&#x5229;&#x7528;&#xFF0C;&#x5728;&#x8C03;&#x7528;obtain&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;Message&#xFF0C;&#x4FBF;&#x65B0;&#x751F;&#x6210;&#x4E00;&#x4E2A;Message&#x5BF9;&#x8C61;&#x5E76;&#x8FD4;&#x56DE;&#xFF0C;&#x5982;&#x679C;&#x5B58;&#x5728;&#x53EF;&#x7528;&#x7684;Message&#xFF0C;&#x5219;&#x53D6;&#x8D70;&#x4E00;&#x4E2A;Message&#x5BF9;&#x8C61;&#x3002;&#x518D;&#x7EC6;&#x770B;&#x91CC;&#x9762;&#x7684;&#x7ED3;&#x6784;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;next&#xFF0C;&#x4E00;&#x60F3;&#x8FD9;&#x53EF;&#x80FD;&#x548C;&#x94FE;&#x8868;&#x6709;&#x5173;&#xFF0C;&#x4E8B;&#x5B9E;&#x5C31;&#x662F;&#x8FD9;&#x6837;&#xFF0C;&#x5DF2;&#x7ECF;&#x4F7F;&#x7528;&#x8FC7;&#x7684;Message&#x5BF9;&#x8C61;&#x4F1A;&#x901A;&#x8FC7;&#x94FE;&#x8868;&#x65B9;&#x5F0F;&#x4E32;&#x8054;&#x8D77;&#x6765;&#xFF0C;obtain&#x65B9;&#x6CD5;&#x4F1A;&#x53D6;&#x8D70;&#x94FE;&#x8868;&#x5934;&#x7684;&#x5151;&#x73B0;&#xFF0C;&#x5E76;&#x66F4;&#x65B0;&#x94FE;&#x8868;&#x3002;</p>
+<pre><code>public void recycle() {
+    if (isInUse()) {
+        if (gCheckRecycle) {
+            throw new IllegalStateException(&quot;This message cannot be recycled because it &quot;
+                    + &quot;is still in use.&quot;);
+        }
+        return;
+    }
+    recycleUnchecked();
+}
+
+void recycleUnchecked() {
+    // Mark the message as in use while it remains in the recycled object pool.
+    // Clear out all other details.
+    flags = FLAG_IN_USE;
+    what = 0;
+    arg1 = 0;
+    arg2 = 0;
+    obj = null;
+    replyTo = null;
+    sendingUid = -1;
+    when = 0;
+    target = null;
+    callback = null;
+    data = null;
+
+    synchronized (sPoolSync) {
+        if (sPoolSize &lt; MAX_POOL_SIZE) {
+            next = sPool;
+            sPool = this;
+            sPoolSize++;
+        }
+    }
+}
+</code></pre><p>&#x5B66;&#x4E60;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x65F6;&#x5E94;&#x8BE5;&#x4F1A;&#x5BF9;&#x8FD9;&#x79CD;&#x64CD;&#x4F5C;&#x5341;&#x5206;&#x719F;&#x6089;&#xFF0C;&#x600E;&#x4E48;&#x5728;&#x94FE;&#x8868;&#x5934;&#x6DFB;&#x52A0;&#x5143;&#x7D20;&#xFF0C;&#x600E;&#x4E48;&#x53D6;&#x8D70;&#x94FE;&#x8868;&#x5934;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x8FD9;&#x91CC;&#x4E0D;&#x518D;&#x8BE6;&#x8FF0;&#x3002;<br>&#x603B;&#x7684;&#x6765;&#x8BF4;&#xFF0C;Android&#x4E3A;&#x6211;&#x4EEC;&#x7EF4;&#x6301;&#x4EE5;&#x6761;&#x6700;&#x957F;&#x4E3A;50&#x7684;Message&#x94FE;&#x8868;&#xFF0C;&#x5176;&#x4E2D;&#x5B58;&#x50A8;&#x4E86;&#x5DF2;&#x7ECF;&#x4F7F;&#x7528;&#x8FC7;&#x7684;Message&#x5BF9;&#x8C61;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4F7F;&#x7528;Message&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x8C03;&#x7528;Handler&#x7684;obtainMessage&#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6;&#x5373;&#x53EF;&#xFF0C;&#x907F;&#x514D;&#x5927;&#x91CF;&#x521B;&#x9020;Message&#x5BF9;&#x8C61;&#x5360;&#x7528;&#x5185;&#x5B58;&#x8017;&#x8D39;&#x8D44;&#x6E90;&#x3002;</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/12/拆轮子系列之拆OkHttp/" rel="next" title="拆轮子系列之拆OkHttp">
+                <i class="fa fa-chevron-left"></i> 拆轮子系列之拆OkHttp
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/25/设计模式之享元模式/"
+           data-title="设计模式之享元模式" data-url="http://yoursite.com/2016/12/25/设计模式之享元模式/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="zhuimengfb" />
+          <p class="site-author-name" itemprop="name">zhuimengfb</p>
+          <p class="site-description motion-element" itemprop="description">persuing happiness</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#享元模式简单例子"><span class="nav-number">1.</span> <span class="nav-text">享元模式简单例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android中的Message获取"><span class="nav-number">2.</span> <span class="nav-text">Android中的Message获取</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhuimengfb</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zhuimengfbblog"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
